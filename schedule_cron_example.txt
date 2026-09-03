@@ -1,0 +1,24 @@
+To run this agent daily on your own machine instead of GitHub Actions:
+
+1. Make sure your ANTHROPIC_API_KEY is set as an environment variable
+   (add this to your ~/.zshrc or ~/.bashrc):
+
+       export ANTHROPIC_API_KEY="sk-ant-..."
+
+2. Open your crontab:
+
+       crontab -e
+
+3. Add a line to run the agent every day at 7:00am:
+
+       0 7 * * * cd /full/path/to/ocean_sf_agent && /usr/bin/python3 agent.py >> agent.log 2>&1
+
+   (Run `which python3` to get the correct interpreter path for your machine.)
+
+4. Save and exit. Your crontab is now scheduled. Check agent.log to confirm
+   it ran and to see each day's output.
+
+Note: local cron only fires while your machine is on and awake. For a
+schedule that runs reliably even when your laptop is closed, use the
+GitHub Actions workflow instead (.github/workflows/daily_lead.yml) — it
+runs in the cloud on GitHub's servers.
